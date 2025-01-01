@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { LeafletModule } from '@bluehalo/ngx-leaflet';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { AddressSearchComponentComponentModule } from '../address-search-component/address-search-component.module';
@@ -17,7 +17,7 @@ import { HomePageRoutingModule } from './home-routing.module';
     LeafletModule,
     HomePageRoutingModule,
     AddressSearchComponentComponentModule,
-  ],
-  declarations: [HomePage]
+    HomePage
+  ]
 })
 export class HomePageModule {}

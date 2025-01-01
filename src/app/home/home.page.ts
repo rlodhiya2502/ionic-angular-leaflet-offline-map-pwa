@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { AlertController, LoadingController } from '@ionic/angular';
-import { circle, LayerGroup, Map as LMap, TileLayer } from 'leaflet';
+import { circle, LatLng, LatLngTuple, LayerGroup, Map as LMap, TileLayer } from 'leaflet';
 import { BaseLayer } from './BaseLayer.enum';
 import { placeLocationMarker } from './placeLocationMarker';
+/// <reference types="google.maps" />
 import PlaceResult = google.maps.places.PlaceResult;
 
 @Component({
@@ -85,17 +86,17 @@ export class HomePage {
       placeResult.geometry.location.lng(),
     ];
     this.map.setView([lat, lng], 18);
-    placeLocationMarker(this.locationLayerGroup, [lat, lng], formattedAddress);
+    placeLocationMarker(this.locationLayerGroup, new LatLng(lat, lng), formattedAddress);
   }
 
   private onLocationSuccess(position: GeolocationPosition) {
     const {accuracy, latitude, longitude} = position.coords;
-    const latlng = [latitude, longitude];
+    const latlng: LatLngTuple = [latitude, longitude];
     this.hideLoading();
     this.map.setView(latlng, 18);
     const accuracyValue = accuracy > 1000 ? accuracy / 1000 : accuracy;
     const accuracyUnit = accuracy > 1000 ? 'km' : 'm';
-    placeLocationMarker(this.locationLayerGroup, latlng, `Accuracy is ${accuracyValue} ${accuracyUnit}`);
+    placeLocationMarker(this.locationLayerGroup, new LatLng(latitude, longitude), `Accuracy is ${accuracyValue} ${accuracyUnit}`);
     const locationCircle = circle(latlng, accuracy);
     this.locationLayerGroup.addLayer(locationCircle);
   }
